@@ -65,7 +65,7 @@ Mình lấy bài tập từ web của anh **Tôi đi Code dạo**: [https://300b
 
 Nếu mọi người có bất kỳ câu hỏi nào hoặc muốn chia sẻ những bài học thú vị trong quá trình học thuật toán và cấu trúc dữ liệu, thì cứ hú mình qua Discord:
 
--   **Discord**: `.jackyson`
+-   **Discord**: [.jackyson](https://discord.com/users/777305854931370026)
 
 ---
 
