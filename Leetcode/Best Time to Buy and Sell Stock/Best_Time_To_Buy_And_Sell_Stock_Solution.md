@@ -6,6 +6,8 @@ Trong bài toán **Max Profit** (Lợi nhuận tối đa), mục tiêu là tìm 
 
 ## **Đoạn mã**
 
+### **Phương pháp sử dụng vector**
+
 ```cpp
 class Solution {
 public:
@@ -36,76 +38,120 @@ public:
 };
 ```
 
+### **Phương pháp tối ưu không sử dụng vector**
+
+```cpp
+class Solution
+{
+public:
+    int maxProfit(vector<int> &prices)
+    {
+        int buyPrice = prices[0];
+        int profit = 0;
+        for (int i = 1; i < prices.size(); i++)
+        {
+            if (buyPrice > prices[i])
+            {
+                buyPrice = prices[i];
+            }
+            else if (prices[i] - buyPrice > profit)
+            {
+                profit = prices[i] - buyPrice;
+            }
+        }
+        return profit;
+    }
+};
+```
+
 ---
 
 ## **Giải thích chi tiết**
 
 ### 1. **Ý tưởng chính**
 
+#### Phương pháp sử dụng vector:
+
 -   **minPrices**: Lưu giá trị nhỏ nhất tại mỗi ngày từ ngày đầu tiên đến ngày hiện tại.
 -   **maxPrices**: Lưu giá trị lớn nhất tại mỗi ngày từ ngày cuối cùng đến ngày hiện tại.
 -   Sau đó, duyệt qua từng ngày để tìm lợi nhuận tối đa bằng công thức:
 
-    ```
+    ```cpp
     maxProfit = max(maxProfit, maxPrices[i] - minPrices[i]);
     ```
 
-    Công thức này so sánh giá bán lớn nhất và giá mua nhỏ nhất tại cùng một thời điểm.
+#### Phương pháp tối ưu:
+
+-   Sử dụng hai biến `buyPrice` (giá mua nhỏ nhất) và `profit` (lợi nhuận lớn nhất) để theo dõi giá trị cần thiết.
+-   Với mỗi ngày:
+    -   Nếu giá ngày hiện tại nhỏ hơn `buyPrice`, cập nhật `buyPrice`.
+    -   Nếu lợi nhuận tại ngày hiện tại (`prices[i] - buyPrice`) lớn hơn `profit`, cập nhật `profit`.
 
 ### 2. **Các bước xử lý trong mã**
 
-1. **Khởi tạo vector minPrices và maxPrices**:
+#### Phương pháp sử dụng vector:
+
+1. **Khởi tạo vector `minPrices` và `maxPrices`**:
 
     - `minPrices` được khởi tạo với `INT_MAX` để lưu giá trị nhỏ nhất.
     - `maxPrices` được khởi tạo với `0` để lưu giá trị lớn nhất.
 
-2. **Tính minPrices**:
+2. **Tính `minPrices`**:
 
-    - Với từng ngày `i`, `minPrices[i]` sẽ lưu giá trị nhỏ nhất từ ngày đầu tiên đến ngày `i`.
-    - Công thức:
-        ```cpp
-        minPrices[i] = i == 0 ? prices[i] : min(minPrices[i - 1], prices[i]);
-        ```
+    - Với từng ngày `i`, `minPrices[i]` lưu giá trị nhỏ nhất từ ngày đầu tiên đến ngày `i`.
 
-3. **Tính maxPrices**:
+3. **Tính `maxPrices`**:
 
-    - Với từng ngày `i`, `maxPrices[i]` sẽ lưu giá trị lớn nhất từ ngày cuối cùng đến ngày `i`.
-    - Công thức:
-        ```cpp
-        maxPrices[i] = i == n - 1 ? prices[i] : max(maxPrices[i + 1], prices[i]);
-        ```
+    - Với từng ngày `i`, `maxPrices[i]` lưu giá trị lớn nhất từ ngày cuối cùng đến ngày `i`.
 
 4. **Tính lợi nhuận tối đa**:
     - Với từng ngày `i`, lợi nhuận được tính bằng hiệu giữa giá bán lớn nhất (`maxPrices[i]`) và giá mua nhỏ nhất (`minPrices[i]`).
-    - Công thức:
-        ```cpp
-        maxProfit = max(maxProfit, maxPrices[i] - minPrices[i]);
-        ```
 
-### 3. **Kiểm tra các trường hợp đặc biệt**
+#### Phương pháp tối ưu:
 
--   Nếu mảng `prices` rỗng hoặc có ít hơn 2 phần tử, thì không thể thực hiện giao dịch. Trong trường hợp này, kết quả là `0`.
--   Đảm bảo rằng giá mua phải nhỏ hơn giá bán.
+1. **Khởi tạo**:
+
+    - Gán giá mua ban đầu (`buyPrice`) bằng giá của ngày đầu tiên.
+    - Gán lợi nhuận (`profit`) là 0.
+
+2. **Duyệt qua từng ngày**:
+
+    - Nếu giá hiện tại nhỏ hơn `buyPrice`, cập nhật `buyPrice`.
+    - Nếu lợi nhuận lớn hơn `profit`, cập nhật `profit`.
+
+3. **Trả về**:
+    - Kết quả cuối cùng là giá trị của `profit`.
 
 ---
 
 ## **Phân tích độ phức tạp**
 
-### **Thời gian**: **O(n)**
+### **Thời gian**
 
--   Vòng lặp đầu tiên: Tính `minPrices` trong **O(n)**.
--   Vòng lặp thứ hai: Tính `maxPrices` trong **O(n)**.
--   Vòng lặp cuối: Tính lợi nhuận tối đa trong **O(n)**.
--   Tổng cộng: **O(n)**.
+-   **Phương pháp sử dụng vector**: **O(n)**.
+    -   Tính `minPrices` và `maxPrices`: **O(n)** mỗi vòng lặp.
+    -   Tính lợi nhuận tối đa: **O(n)**.
+    -   Tổng cộng: **O(n)**.
+-   **Phương pháp tối ưu**: **O(n)**.
+    -   Một vòng lặp duy nhất qua mảng `prices`.
 
-### **Không gian**: **O(n)**
+### **Không gian**
 
--   Sử dụng hai vector `minPrices` và `maxPrices` để lưu giá trị nhỏ nhất và lớn nhất tương ứng.
--   Tổng không gian phụ thuộc là **O(n)**.
+-   **Phương pháp sử dụng vector**: **O(n)**.
+    -   Sử dụng hai vector `minPrices` và `maxPrices`.
+-   **Phương pháp tối ưu**: **O(1)**.
+    -   Chỉ sử dụng hai biến `buyPrice` và `profit`.
 
 ---
 
 ## **Tổng kết**
 
--   Đoạn mã trên là một giải pháp đơn giản và dễ hiểu cho bài toán tìm lợi nhuận tối đa khi mua và bán cổ phiếu một lần.
--   Nếu yêu cầu tối ưu hóa không gian xuống **O(1)**, bạn có thể tính toán trực tiếp mà không cần dùng vector.
+-   **Phương pháp sử dụng vector**:
+    -   Dễ hiểu và trực quan.
+    -   Tuy nhiên, không gian sử dụng lớn hơn (**O(n)**).
+-   **Phương pháp tối ưu**:
+
+    -   Giải pháp hiệu quả hơn về không gian (**O(1)**).
+    -   Thích hợp để xử lý các mảng `prices` lớn hơn do tiết kiệm tài nguyên.
+
+-   Cả hai phương pháp đều đạt được độ phức tạp thời gian **O(n)**.
