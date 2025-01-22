@@ -14,7 +14,8 @@ class Solution:
                 return False
             else:
                 # Kiểm tra xem dấu ngoặc mở trên đỉnh ngăn xếp có khớp không.
-                top = stack.pop()
+                top = stack[-1]
+                stack.pop()
                 if char == ')' and top != '(':
                     return False
                 if char == ']' and top != '[':
