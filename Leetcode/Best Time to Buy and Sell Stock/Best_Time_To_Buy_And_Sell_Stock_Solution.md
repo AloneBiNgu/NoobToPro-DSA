@@ -1,4 +1,4 @@
-### **Giải thích giải pháp Max Profit**
+### **Best Time to Buy and Sell Stock Solution Explanation**
 
 Trong bài toán **Max Profit** (Lợi nhuận tối đa), mục tiêu là tìm lợi nhuận lớn nhất có thể kiếm được bằng cách mua và bán cổ phiếu dựa trên giá cổ phiếu hàng ngày được cung cấp trong mảng. Quy tắc là bạn phải mua trước khi bán, và chỉ được thực hiện một giao dịch mua và bán.
 
