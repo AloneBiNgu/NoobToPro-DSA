@@ -108,4 +108,4 @@ public:
 ## **Tổng kết**
 
 -   Đoạn mã trên là một giải pháp đơn giản và dễ hiểu cho bài toán tìm lợi nhuận tối đa khi mua và bán cổ phiếu một lần.
--   Nếu yêu cầu tối ưu hóa không gian xuống **O(1)**, bạn có thể tính toán trực tiếp mà không cần dùng vector. Hãy để tôi biết nếu bạn cần cải tiến này!
+-   Nếu yêu cầu tối ưu hóa không gian xuống **O(1)**, bạn có thể tính toán trực tiếp mà không cần dùng vector.
