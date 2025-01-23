@@ -9,6 +9,8 @@ Trong bài toán **Valid Palindrome**, mục tiêu là kiểm tra xem một chu�
 
 ## **Đoạn mã**
 
+### **Cách giải quyết thứ nhất**
+
 ```cpp
 class Solution {
 public:
@@ -62,50 +64,103 @@ public:
 };
 ```
 
+### **Cách giải quyết thứ hai**
+
+```cpp
+class Solution {
+public:
+    bool isNormalCharacter(char c) {
+        if ((c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')) return true;
+        return false;
+    }
+
+    char toLowercase(char c) {
+        if (c >= 'A' && c <= 'Z') return (char)(c - 'A' + 'a');
+        return c;
+    }
+
+    bool isPalindrome(string s) {
+        string temp;
+        for (int i = 0; i < s.length(); i++) {
+            if (isNormalCharacter(s[i]) == true) {
+                temp.push_back(toLowercase(s[i]));
+            }
+        }
+
+        int pointerOne = 0, pointerTwo = temp.length() - 1;
+        while (pointerOne < pointerTwo) {
+            if (temp[pointerOne] != temp[pointerTwo]) {
+                return false;
+            }
+
+            pointerOne += 1;
+            pointerTwo -= 1;
+        }
+
+        return true;
+    }
+};
+```
+
 ---
 
 ## **Giải thích chi tiết**
 
-### 1. **Hàm `convertToLowercase`**
+### 1. **Cách giải quyết thứ nhất**
 
--   Hàm này nhận một tham chiếu đến ký tự (`char&`) và:
+#### Hàm `convertToLowercase`
+
+-   Nhận một tham chiếu đến ký tự (`char&`) và:
     1. Loại bỏ khoảng trắng và các ký tự không phải chữ hoặc số.
     2. Chuyển ký tự chữ in hoa thành chữ thường bằng cách tăng mã ASCII thêm 32.
     3. Trả về `true` nếu ký tự hợp lệ, ngược lại trả về `false`.
 
-### 2. **Hàm `isPalindrome`**
+#### Hàm `isPalindrome`
 
-#### Bước 1: Làm sạch chuỗi
+-   **Bước 1:** Loại bỏ các ký tự không hợp lệ trong chuỗi bằng cách gọi `convertToLowercase`.
+-   **Bước 2:** So sánh từng ký tự trong chuỗi với ký tự tương ứng từ cuối đến đầu để kiểm tra tính đối xứng.
 
--   Sử dụng vòng lặp `while` để loại bỏ các ký tự không hợp lệ trong chuỗi bằng cách gọi `convertToLowercase`.
--   Xóa các ký tự không hợp lệ bằng phương thức `erase`.
--   Thoát vòng lặp khi không còn ký tự nào cần xóa.
+### 2. **Cách giải quyết thứ hai**
 
-#### Bước 2: Kiểm tra tính đối xứng
+#### Hàm `isNormalCharacter`
 
--   So sánh từng ký tự trong chuỗi với ký tự tương ứng từ cuối đến đầu.
--   Nếu có ký tự không khớp, trả về `false`.
--   Nếu tất cả các ký tự khớp, chuỗi là palindrome.
+-   Kiểm tra xem ký tự có thuộc bảng chữ cái hoặc là ký tự số không.
+
+#### Hàm `toLowercase`
+
+-   Chuyển ký tự in hoa thành chữ thường bằng cách trừ mã ASCII.
+
+#### Hàm `isPalindrome`
+
+-   **Bước 1:** Tạo một chuỗi tạm `temp` chỉ chứa các ký tự hợp lệ, sau khi đã chuyển thành chữ thường.
+-   **Bước 2:** Sử dụng hai con trỏ `pointerOne` (đầu chuỗi) và `pointerTwo` (cuối chuỗi) để kiểm tra tính đối xứng.
 
 ---
 
 ## **Phân tích độ phức tạp**
 
-### **Thời gian**: **O(n)**
+### **Thời gian**
 
-1. Làm sạch chuỗi:
-    - Duyệt qua chuỗi nhiều lần để loại bỏ ký tự không hợp lệ (trung bình O(n)).
-2. Kiểm tra đối xứng:
-    - So sánh các ký tự từ đầu và cuối (O(n)).
-3. Tổng cộng: **O(n)**.
+1. **Cách 1:**
 
-### **Không gian**: **O(1)**
+    - Làm sạch chuỗi: O(n^2) do sử dụng `erase` trong vòng lặp.
+    - Kiểm tra đối xứng: O(n).
+    - **Tổng cộng:** O(n^2).
 
--   Không sử dụng cấu trúc dữ liệu bổ sung, chỉ thao tác trực tiếp trên chuỗi.
+2. **Cách 2:**
+
+    - Tạo chuỗi tạm: O(n).
+    - Kiểm tra đối xứng: O(n).
+    - **Tổng cộng:** O(n).
+
+### **Không gian**
+
+1. **Cách 1:** O(1) (không sử dụng thêm không gian).
+2. **Cách 2:** O(n) (sử dụng chuỗi tạm `temp`).
 
 ---
 
 ## **Tổng kết**
 
--   Giải pháp trên là một cách tiếp cận dễ hiểu để kiểm tra tính đối xứng của chuỗi bằng cách làm sạch chuỗi trước.
--   Nếu cần tối ưu hoặc viết gọn hơn, có thể sử dụng hai con trỏ để so sánh trực tiếp mà không cần loại bỏ ký tự.
+-   Cách giải quyết thứ hai tối ưu hơn về thời gian thực thi nhờ việc tránh sử dụng `erase` trong vòng lặp.
+-   Cả hai cách đều đảm bảo tính chính xác và dễ hiểu, phù hợp để áp dụng tùy thuộc vào trường hợp cụ thể.
