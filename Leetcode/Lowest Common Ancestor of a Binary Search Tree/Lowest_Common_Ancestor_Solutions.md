@@ -1,8 +1,3 @@
-Dưới đây là nội dung định dạng **Markdown (.md)** cho giải pháp **Lowest Common Ancestor**:
-
----
-
-````markdown
 # Lowest Common Ancestor Solution Explanation
 
 Trong bài toán **Lowest Common Ancestor (LCA)**, mục tiêu là tìm tổ tiên chung gần nhất của hai nút trong một cây nhị phân.
@@ -80,6 +75,7 @@ public:
     }
 };
 ```
+
 ````
 
 ---
@@ -142,3 +138,4 @@ public:
 ```
 
 ```
+````
