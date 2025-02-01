@@ -134,8 +134,4 @@ public:
 -   **DFS giúp duyệt cây một cách hiệu quả** và tìm ra LCA mà không cần lưu trữ thông tin phụ.
 
 ✅ Đây là cách tiếp cận tối ưu để tìm tổ tiên chung gần nhất của hai nút trong một cây nhị phân.
-
-```
-
-```
 ````
